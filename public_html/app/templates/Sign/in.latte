@@ -1,0 +1,20 @@
+{block content}
+<div class="container">
+	<div class="row">
+		<div class="signin col-xs-12 col-md-4 col-xs-offset-0 col-md-offset-4">
+			<h1 n:block=title>Prihlásiť sa</h1>
+			{form signInForm}
+				<div class="alert alert-danger" n:if="$form->hasErrors()">
+					<p n:foreach="$form->errors as $error">{$error}</p>
+				</div>
+				<div class="form-group form-group-conjuncted">
+					{input username class=>"form-control input-lg"}
+					{input password class=>"form-control input-lg"}
+				</div>
+				{input send class=>"btn btn-success btn-block"}
+			{/form}
+		</div>
+	</div>
+</div>
+
+

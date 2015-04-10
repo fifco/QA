@@ -1,0 +1,17 @@
+/* 
+    Created on : 12.10.2014, 1:15:18
+    Author     : Filip
+*/
+
+
+.form-group.form-group-conjuncted input:first-of-type {
+	border-radius: 10px 10px 0 0; 
+}
+.form-group.form-group-conjuncted input:last-of-type {
+	border-radius: 0 0 10px 10px; 
+	border-top: 0;
+}
+.signin h1{
+	font-size: 18px;
+	font-weight: bold;
+}

@@ -1,0 +1,83 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+*}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>{ifset #title}{include title|striptags} | {/ifset}Q&amp;A</title>
+
+		<link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{$basePath}/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{$basePath}/css/css.css">
+		{block head}{/block}
+	</head>
+
+	<body>
+		<script> document.documentElement.className += ' js'</script>
+
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="sr-only">Prepnúť navigáciu</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" n:href="Homepage:">Q&amp;A</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li n:if="$user->loggedIn" class="dropdown-header"><span class="glyphicon glyphicon-user"></span>&nbsp;{$user->getIdentity()->username}</li>
+								<li n:if='$user->loggedIn'><a n:href="Sign:out">Odhlásiť</a></li>
+								<li n:if='!$user->loggedIn'><a n:href="Sign:in">Prihlásiť</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					{snippet flashmessage}
+					<div n:foreach="$flashes as $flash" class="alert {if $flash->type}alert-{$flash->type}{else}alert-info{/if}">
+						{if $flash->type == "success"}
+							<span class="glyphicon glyphicon-ok"></span>&nbsp;
+						{elseif $flash->type == "warning"}
+							<span class="glyphicon glyphicon-warning-sign"></span>&nbsp;
+						{elseif $flash->type == "danger"}
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;
+						{else}
+							<span class="glyphicon glyphicon-info-sign"></span>&nbsp;
+						{/if}
+						{$flash->message}
+					</div>
+					{/snippet}
+				</div>
+			</div>
+		</div>
+
+
+		{include content}
+
+		{block scripts}
+		<script src="{$basePath}/js/jquery.min.js"></script>
+		<script src="{$basePath}/js/netteForms.min.js"></script>
+		<script src="{$basePath}/js/nette.ajax.min.js"></script>
+		<script src="{$basePath}/js/bootstrap.min.js"></script>
+		<script src="{$basePath}/js/js.js"></script>
+		{/block}
+
+		{dump}
+	</body>
+</html>

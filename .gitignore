@@ -1,0 +1,24 @@
+# nette
+public_html/log/*
+public_html/temp/*
+public_html/vendor/*
+!public_html/vendor/others
+!public_html/temp/sessions
+
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# netbeans 
+nbproject/*

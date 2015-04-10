@@ -1,0 +1,9 @@
+/* TEAM */
+	Developer: Filip Čonka @ SWWWIFT
+	Contact: conka [at] swwwift.sk
+	From: Slovakia
+
+/* SITE */
+	Language: Slovak
+	Doctype: HTML5
+	IDE: Netbeans IDE, Notepad++

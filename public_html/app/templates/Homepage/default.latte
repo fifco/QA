@@ -1,0 +1,83 @@
+{block content}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			{if $question}
+				<h1>{$question->title}</h1>
+				<div class="well well-sm"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;<b>Dotazovateľ:</b>&nbsp;{$question->user->username}&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;<b>Radca:</b>&nbsp;{$question->mentor->username}</div>
+				{if $answers != false}
+					{snippet answers}
+					{if $answers->count()}
+						<div class="panel answer" n:foreach="$answers as $answer">
+							<div class="panel-body">{$answer->text}</div>
+							<div class="panel-footer text-right"><span class="glyphicon glyphicon-time"></span>&nbsp;{$answer->time|date:'H.i j.n.Y'}&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;{$answer->user->username}</div>
+						</div>
+					{else}
+						<div class="no-answers alert alert-info">
+							<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Zatiaľ nebola pridaná žiadna odpoveď.
+						</div>
+					{/if}
+					<div class="addAnswer panel panel-primary">
+						<div class="panel-heading">Pridať odpoveď</div>
+						<div class="panel-body" n:snippet="addanswerform">
+							{form addAnswerForm role=>"form",class=>"ajax"}
+								<div class="alert alert-info" n:if="$form->hasErrors()">
+									<p n:foreach="$form->errors as $error">{$error}</p>
+								</div>
+								<div class="form-group">
+									{input text class=>"form-control"}
+								</div>
+								{input question_id value=>$question->id}
+								{input last_id}
+								{input send class=>"btn btn-primary"}
+							{/form}
+						</div>
+					</div>
+					{/snippet}
+				{/if}
+			{else}
+				<div class="no-question alert alert-info">
+					<span class="glyphicon glyphicon-info-sign"></span>&nbsp;Vyberte otázku z menu.
+				</div>
+			{/if}
+
+		</div>
+		<div class="col-sm-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Zoznam otázok</div>
+				<div class="panel-body">
+					{if $questions->count()}
+						<ul class="nav nav-pills nav-stacked">
+
+							<li n:foreach="$questions as $question" {ifCurrent Homepage:default $question->id}class="active"{/ifCurrent}>
+								<a n:href="Homepage: $question->id">{$question->title}</a>
+							</li>
+						</ul>
+					{else}
+						<div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;Neboli nájdené žiadne otázky</div>
+					{/if}
+				</div>
+			</div>
+
+			<div class="addQuestion panel panel-primary">
+				<div class="panel-heading">Pridať otázku</div>
+				<div class="panel-body">
+					{if $user->loggedIn}
+						{form addQuestionForm role=>"form"}
+							<div class="form-group">
+								{input title class=>"form-control"}
+							</div>
+							<div class="form-group">
+								{input mentor_id class=>"form-control"}
+							</div>
+							{input send class=>"btn btn-primary"}
+						{/form}
+					{else}
+						<div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;Pre pridávanie otázok musíte byť prihlásený.</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
